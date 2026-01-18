@@ -1,0 +1,35 @@
+{
+  "title": "故事标题",
+  "subtitle": "English Title",
+  "duration": "30s",
+  "genre": ["类型1", "类型2"],
+  "logline": "一句话故事概述",
+  "synopsis": "详细故事梗概...",
+  "characters": [
+    {
+      "id": "char_001",
+      "name": "角色名",
+      "nameEn": "Character Name",
+      "role": "主角/配角",
+      "age": 20,
+      "gender": "male/female",
+      "appearance": {
+        "hair": "发型和颜色",
+        "eyes": "眼睛颜色和特征",
+        "height": "身高描述",
+        "outfit": "服装描述"
+      },
+      "personality": "性格特点",
+      "promptKeywords": "english keywords for image generation"
+    }
+  ],
+  "setting": {
+    "time": "时代背景",
+    "locations": [
+      "场景1 - 详细描述",
+      "场景2 - 详细描述"
+    ]
+  },
+  "mood": "整体氛围描述",
+  "colorPalette": ["#颜色1", "#颜色2", "#颜色3"]
+}
