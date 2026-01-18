@@ -1,5 +1,7 @@
 # Karma Anime 动漫制作技能
 
+> Version 1.1.0
+
 完整的 AI 动漫制作工作流，从创意到成片一站式完成。
 
 ## 特性
@@ -43,7 +45,8 @@ karma-anime-skill/
 │   ├── generate_video.sh
 │   └── merge_videos.sh
 ├── resources/         # 参考文档
-│   └── style_guide.md
+│   ├── style_guide.md
+│   └── veo_api_reference.md
 └── assets/            # 静态资源
     └── icon.png
 ```
