@@ -20,7 +20,7 @@ TokenCloud Veo 3.1 视频生成 API 完整参考文档。
 ```bash
 curl -s --location --request POST 'https://llm.tokencloud.ai/videos' \
 --header 'Content-Type: application/json' \
---header 'Authorization: Bearer sk-RPo8Q8Lf9_SKoNMSjo5DNA' \
+--header 'Authorization: Bearer ${TOKENCLOUD_API_KEY}' \
 --data-raw '{
   "model": "google/veo-3.1-generate-preview",
   "prompt": "japanese anime style, young female character with flowing blue hair, cherry blossom petals floating in the wind, soft pink lighting, gentle camera pan right",
@@ -64,7 +64,7 @@ curl -s --location --request POST 'https://llm.tokencloud.ai/videos' \
 
 ```bash
 curl -s 'https://llm.tokencloud.ai/v1/videos/{VIDEO_ID}' \
---header 'x-litellm-api-key: sk-RPo8Q8Lf9_SKoNMSjo5DNA'
+--header 'x-litellm-api-key: ${TOKENCLOUD_API_KEY}'
 ```
 
 ### 响应 - 处理中
@@ -107,7 +107,7 @@ curl -s 'https://llm.tokencloud.ai/v1/videos/{VIDEO_ID}' \
 
 ```bash
 curl 'https://llm.tokencloud.ai/v1/videos/{VIDEO_ID}/content' \
---header 'x-litellm-api-key: sk-RPo8Q8Lf9_SKoNMSjo5DNA' \
+--header 'x-litellm-api-key: ${TOKENCLOUD_API_KEY}' \
 --output shot_001.mp4
 ```
 
@@ -127,7 +127,7 @@ curl 'https://llm.tokencloud.ai/v1/videos/{VIDEO_ID}/content' \
 # 1. 创建任务
 RESPONSE=$(curl -s --location --request POST 'https://llm.tokencloud.ai/videos' \
 --header 'Content-Type: application/json' \
---header 'Authorization: Bearer sk-RPo8Q8Lf9_SKoNMSjo5DNA' \
+--header 'Authorization: Bearer ${TOKENCLOUD_API_KEY}' \
 --data-raw '{
   "model": "google/veo-3.1-generate-preview",
   "prompt": "your prompt here",
@@ -140,7 +140,7 @@ echo "Video ID: $VIDEO_ID"
 # 2. 轮询状态
 while true; do
   STATUS=$(curl -s "https://llm.tokencloud.ai/v1/videos/$VIDEO_ID" \
-    --header 'x-litellm-api-key: sk-RPo8Q8Lf9_SKoNMSjo5DNA' | jq -r '.status')
+    --header 'x-litellm-api-key: ${TOKENCLOUD_API_KEY}' | jq -r '.status')
 
   echo "Status: $STATUS"
 
@@ -156,7 +156,7 @@ done
 
 # 3. 下载视频
 curl "https://llm.tokencloud.ai/v1/videos/$VIDEO_ID/content" \
-  --header 'x-litellm-api-key: sk-RPo8Q8Lf9_SKoNMSjo5DNA' \
+  --header 'x-litellm-api-key: ${TOKENCLOUD_API_KEY}' \
   --output output.mp4
 
 echo "Video saved to output.mp4"

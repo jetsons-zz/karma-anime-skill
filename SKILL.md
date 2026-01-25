@@ -138,14 +138,14 @@ cel shading, high quality character reference sheet"
 **API 配置:**
 - 端点: `https://llm.tokencloud.ai/videos`
 - 模型: `google/veo-3.1-generate-preview`
-- 认证: `Bearer sk-RPo8Q8Lf9_SKoNMSjo5DNA`
+- 认证: `Bearer ${TOKENCLOUD_API_KEY}` (需设置环境变量)
 - 支持时长: **4秒、6秒、8秒**
 
 **创建视频任务:**
 ```bash
 curl -s -X POST "https://llm.tokencloud.ai/videos" \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-RPo8Q8Lf9_SKoNMSjo5DNA" \
+  -H "Authorization: Bearer ${TOKENCLOUD_API_KEY}" \
   -d '{
     "model": "google/veo-3.1-generate-preview",
     "prompt": "japanese anime style, [画面描述], [镜头运动], cinematic quality",
@@ -156,13 +156,13 @@ curl -s -X POST "https://llm.tokencloud.ai/videos" \
 **查询状态:**
 ```bash
 curl -s "https://llm.tokencloud.ai/v1/videos/{VIDEO_ID}" \
-  -H "x-litellm-api-key: sk-RPo8Q8Lf9_SKoNMSjo5DNA"
+  -H "x-litellm-api-key: ${TOKENCLOUD_API_KEY}"
 ```
 
 **下载视频 (status=completed 后):**
 ```bash
 curl -s "https://llm.tokencloud.ai/v1/videos/{VIDEO_ID}/content" \
-  -H "x-litellm-api-key: sk-RPo8Q8Lf9_SKoNMSjo5DNA" \
+  -H "x-litellm-api-key: ${TOKENCLOUD_API_KEY}" \
   -o shot_001.mp4
 ```
 
@@ -220,6 +220,19 @@ anime_project/
 │   └── ...
 └── output/             # 最终输出
     └── final.mp4
+```
+
+## 环境变量配置
+
+使用前需要设置 Veo API 密钥:
+
+```bash
+export TOKENCLOUD_API_KEY="your-api-key-here"
+```
+
+或者在 `~/.bashrc` / `~/.zshrc` 中添加:
+```bash
+export TOKENCLOUD_API_KEY="your-api-key-here"
 ```
 
 ## 使用示例
