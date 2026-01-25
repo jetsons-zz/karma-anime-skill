@@ -2,8 +2,16 @@
 # Karma Anime - Veo 3 视频生成脚本
 # 使用: ./generate_video.sh "prompt" duration output_file
 
-API_KEY="sk-RPo8Q8Lf9_SKoNMSjo5DNA"
+# 从环境变量读取 API Key
+API_KEY="${TOKENCLOUD_API_KEY}"
 API_BASE="https://llm.tokencloud.ai"
+
+# 验证 API Key
+if [[ -z "$API_KEY" ]]; then
+    echo "❌ 错误: 未设置环境变量 TOKENCLOUD_API_KEY"
+    echo "请先设置: export TOKENCLOUD_API_KEY='your-api-key-here'"
+    exit 1
+fi
 
 PROMPT="$1"
 DURATION="${2:-4}"  # 默认4秒，支持 4/6/8
