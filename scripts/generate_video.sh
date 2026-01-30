@@ -1,6 +1,12 @@
 #!/bin/bash
 # Karma Anime - Veo 3 视频生成脚本
-# 使用: bash generate_video.sh "prompt" duration output_file
+# 使用: bash generate_video.sh "prompt" duration output_file [character_file]
+#
+# 参数:
+#   prompt         - 视频提示词（场景、动作、镜头等，不含角色描述）
+#   duration       - 视频时长 (4/6/8)
+#   output_file    - 输出文件名
+#   character_file - 角色描述文件路径（强烈建议提供）
 #
 # 环境变量 (可选):
 #   VEO_API_BASE     - API 地址，默认 https://llm.tokencloud.ai
@@ -19,12 +25,31 @@ POLL_INTERVAL="${VEO_POLL_INTERVAL:-10}"
 PROMPT="${1:-}"
 DURATION="${2:-4}"
 OUTPUT="${3:-output.mp4}"
+CHARACTER_FILE="${4:-}"
 
 # 检查必需参数
 if [[ -z "${PROMPT}" ]]; then
     echo "[ERROR] 请提供 prompt 参数" >&2
-    echo "使用: VEO_API_KEY=xxx bash $0 \"prompt\" [duration] [output_file]" >&2
+    echo "使用: bash $0 \"prompt\" [duration] [output_file] [character_file]" >&2
     exit 1
+fi
+
+# 如果提供了角色描述文件，读取并合并到提示词
+if [[ -n "${CHARACTER_FILE}" ]]; then
+    if [[ ! -f "${CHARACTER_FILE}" ]]; then
+        echo "[ERROR] 角色描述文件不存在: ${CHARACTER_FILE}" >&2
+        exit 1
+    fi
+    CHARACTER_DESC=$(cat "${CHARACTER_FILE}")
+    if [[ -z "${CHARACTER_DESC}" ]]; then
+        echo "[ERROR] 角色描述文件为空: ${CHARACTER_FILE}" >&2
+        exit 1
+    fi
+    # 将角色描述插入到提示词开头
+    PROMPT="${CHARACTER_DESC}, ${PROMPT}"
+    echo "[INFO] 已加载角色描述: ${CHARACTER_FILE}"
+else
+    echo "[WARN] 未提供角色描述文件，角色一致性可能受影响" >&2
 fi
 
 # 验证时长参数
