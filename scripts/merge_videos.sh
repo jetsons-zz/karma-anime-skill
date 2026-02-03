@@ -10,7 +10,7 @@ echo "   输入目录: $SHOTS_DIR"
 echo "   输出文件: $OUTPUT"
 
 # 创建合并列表
-CONCAT_FILE=$(mktemp)
+CONCAT_FILE="${SHOTS_DIR}/.concat_list.txt"
 for f in "$SHOTS_DIR"/shot_*.mp4; do
     if [[ -f "$f" ]]; then
         echo "file '$f'" >> "$CONCAT_FILE"
